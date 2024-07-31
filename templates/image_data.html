@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Data</title>
+    <style>
+        @font-face {
+            font-family: 'MadimiOne';
+            src: url('/static/fonts/MadimiOne-Regular.ttf') format('truetype');
+        }
+
+        body {
+            margin: 0;
+            font-family: 'MadimiOne';
+            letter-spacing: 1.25px;
+            word-spacing: 3px;
+            padding: 10px;
+            background-color: rgba(136, 0, 255, 0.062);
+        }
+
+        .top-bar {
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+            border-radius: 10px;
+            background-color: rgb(136, 0, 255);
+            font-size: 30px;
+            padding: 2.5%;
+        }
+
+        
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            margin-left: 60px;
+            margin-right: 60px;
+            margin-top: 60px;
+        }
+
+        .folder-container {
+            text-align: center;
+            margin-bottom: 20px;
+            transition: transform 0.4s;
+            flex-basis: 12%; /* Set width of folder container */
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+        }
+
+        .folder-container:hover {
+            transform: translateY(-10px); /* Move folder container up on hover */
+            background-color: rgb(136, 0, 255);
+        }
+        .folder-container:hover .folder-icon {
+            transform: scale(1.1); /* Scale up folder icon on hover */
+        }
+        .folder-container a {
+            text-decoration: none;
+            display: block;
+        }
+
+        /* Adjust folder icon size */
+        .folder-icon {
+            width: 90%; /* Adjust the size of the folder icon */
+            border-radius: 10px;
+            transition: transform 0.4s;/* Set default background color */
+            z-index: 1;
+        }
+        .folder-name {
+            margin-top: 10px;
+            font-size: 16px;
+            font-family: 'MadimiOne';
+            color: rgb(86, 46, 119);
+        }
+
+        .folder-container:hover .folder-name {
+            color: white;
+        }
+        .space-between-boxes{
+            margin: 25.5px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Top bar -->
+    <div class="top-bar">Images</div>
+
+    <!-- Outer container -->
+    
+        <!-- Folder containers -->
+        <div class="container">
+            <!-- Dynamically generate folder containers for each folder -->
+            {% for folder_name in folder_names %}
+            <div class="space-between-boxes"></div>
+            <div class="folder-container">
+                <a href="/student_images/{{ folder_name }}">
+                    <img src="../static/project_images/folder.png" class="folder-icon" alt="Folder">
+                    <div class="folder-overlay"></div>
+                    <div class="folder-name">{{ folder_name }}</div>
+                </a>
+            </div>
+            <div class="space-between-boxes"></div>
+            {% endfor %}
+        </div>
+</body>
+
+</html>

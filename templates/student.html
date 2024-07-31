@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Details</title>
+    <style>
+        @font-face {
+            font-family: 'MadimiOne';
+            src: url('/static/fonts/MadimiOne-Regular.ttf') format('truetype');
+        }
+
+        body {
+            font-family: 'MadimiOne';
+            margin: 0;
+            padding: 20px;
+            background-color: rgba(136, 0, 255, 0.199);
+            letter-spacing: 1.5px;
+            word-spacing: 3.5px;
+        }
+
+        select {
+            font-family: 'MadimiOne';
+            /* Apply the custom font to input text and select elements */
+            width: 100%;
+            font-size: 15px;
+            padding: 7px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            border: 1px solid rgba(136, 0, 255, 0.534);
+            color: rgba(57, 11, 118, 0.829);
+            letter-spacing: 1.5px;
+            word-spacing: 3.5px;
+        }
+
+        input[type="text"] {
+            font-family: 'MadimiOne';
+            /* Apply the custom font to input text and select elements */
+            width: 100%;
+            font-size: 14px;
+            padding: 7px;
+            letter-spacing: 1.5px;
+            word-spacing: 3.5px;
+            border-radius: 4px;
+            box-sizing: border-box;
+            border: 1px solid rgba(136, 0, 255, 0.534);
+            color: rgba(57, 11, 118, 0.829);
+        }
+
+        .outer_container {
+            width: 74%;
+            height: 78%;
+            overflow: auto;
+            background-color: white;
+            box-shadow: 2px 5px 25px rgba(136, 0, 255, 0.635);
+            border: 3px solid rgb(136, 0, 255);
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            /* align-items: center; */
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 10px;
+        }
+
+        .container {
+            margin-top: 8px;
+            margin-left: 20px;
+            height: 100%;
+            width: 49%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .second_col {
+            height: 100%;
+            width: 44.5%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .input-group {
+            margin-bottom: 3%;
+            font-size: 15px;
+        }
+
+        label {
+            display: block;
+            font-weight: 400;
+            margin-top: 5px;
+            margin-bottom: 2.55px;
+        }
+
+        button {
+            border: 1px solid rgb(136, 0, 255);
+            padding: 10px 20px;
+            background-color: white;
+            color: rgb(136, 0, 255);
+            border-radius: 10px;
+            font-family: 'MadimiOne';
+            font-size: 16px;
+            margin-right: 20px;
+        }
+
+        button:hover {
+            color: white;
+            background-color: rgb(136, 0, 255);
+        }
+
+        .input-group-inline {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .input-group-inline .input-group {
+            width: 48%;
+        }
+
+        .in_between_space {
+            height: 20px;
+        }
+
+        fieldset legend {
+            color: rgb(136, 0, 255);
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .button-container {
+            text-align: center;
+            letter-spacing: 1.5px;
+        }
+
+        .add_icon {
+            margin-top: 10%;
+            height: 50%;
+            width: 63%;
+            display: flex;
+            justify-content: center;
+        }
+
+        .button_upload {
+            text-align: center;
+            letter-spacing: 1.25px;
+            word-spacing: 2.5px;
+            width: 35%;
+            margin-top: 3%;
+            margin-bottom: 5%;
+            margin-left: 32%;
+        }
+
+        .add_icon img {
+            max-width: 100%;
+            max-height: 100%;
+            border: 1px solid black;
+            border-radius: 40px;
+            /* Adjust the margin to center the image vertically and horizontally */
+            margin-left: 28%;
+            /* Add a box-shadow to provide a visual effect */
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .student_info {
+            color: rgb(75, 14, 128);
+            margin: 6px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="outer_container">
+        <div class="container">
+            <form id="student-form" method="post" action="/update_student/{{ student.id }}">
+                <fieldset>
+                    <legend>Course Information</legend>
+                    <div class="input-group">
+                        <label for="current-year">Current Year:</label>
+                        <select name="current-year" id="current-year" required>
+                            <option value="">--Select--</option>
+                            <option value="First Year" {% if student.current_year=='First Year' %} selected {% endif %}>
+                                First Year</option>
+                            <option value="Second Year" {% if student.current_year=='Second Year' %} selected {% endif
+                                %}>Second Year</option>
+                            <option value="Third Year" {% if student.current_year=='Third Year' %} selected {% endif %}>
+                                Third Year</option>
+                            <option value="Fourth Year" {% if student.current_year=='Fourth Year' %} selected {% endif
+                                %}>Fourth Year</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label for="department">Department:</label>
+                        <select name="department" id="department" required>
+                            <option value="">--Select--</option>
+                            <option value="B. Tech - CSE" {% if student.department=='B. Tech - CSE' %} selected {% endif
+                                %}>B. Tech - Computer Science and Engineering</option>
+                            <option value="B. Tech - ECE" {% if student.department=='B. Tech - ECE' %} selected {% endif
+                                %}>B. Tech - Electronics and Communication Engineering</option>
+                            <option value="M. Tech" {% if student.department=='M. Tech' %} selected {% endif %}>M. Tech
+                            </option>
+                        </select>
+                    </div>
+                </fieldset>
+                <div class="in_between_space">
+                </div>
+                <div class="input-group">
+                    <fieldset>
+                        <legend>Student Information</legend>
+                        <div class="input-group-inline">
+                            <div class="input-group">
+                                <label for="reg-no">Registration Number:</label>
+                                <input name="reg-no" type="text" id="reg-no" value="{{ student.reg_no }}" required>
+                            </div>
+                            <div class="input-group">
+                                <label for="roll-no">Roll Number:</label>
+                                <input name="roll-no" type="text" id="roll-no" value="{{ student.roll_no }}" required>
+                            </div>
+                        </div>
+                        <div class="input-group-inline">
+                            <div class="input-group">
+                                <label for="student-name">Student Name:</label>
+                                <input name="student-name" type="text" id="student-name"
+                                    value="{{ student.student_name }}" required>
+                            </div>
+                            <div class="input-group">
+                                <label for="phone">Phone Number:</label>
+                                <input name="phone" type="text" id="phone" value="{{ student.phone }}" required>
+                            </div>
+                        </div>
+                        <div class="input-group">
+                            <label for="email">E-mail:</label>
+                            <input name="email" type="text" id="email" value="{{ student.email }}" required>
+                        </div>
+                        <div class="input-group">
+                            <label for="address">Address:</label>
+                            <input name="address" type="text" id="address" value="{{ student.address }}" required>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class="button-container">
+                    <button type="submit" onclick=validateAndSave()>Update</button>
+                    <button type="button" onclick="delete_student()">Delete</button>
+                </div>
+            </form>
+        </div>
+        <div class="second_col" style="text-align: center;">
+
+
+            <div class="add_icon">
+                <!-- Wrap the image inside a label element -->
+                <label for="upload-photo">
+                    <img id="preview-image" src="../static/project_images/add_a_photo.png" alt="Add a photo icon">
+                </label>
+            </div>
+            <!-- Hide the file input element by default -->
+            <input type="file" name="image" id="upload-photo" accept="image/*" style="display: none;">
+            <button type="submit" class="button_upload" id="upload-btn" onclick=upload_image()>Upload Image</button>
+            <h3 class="student_info">{{ student.student_name }}</h3>
+            <p class="student_info">{{ student.reg_no }}</p>
+            <p class="student_info">{{ student.roll_no }}</p>
+            <p class="student_info">{{ student.department }}</p>
+        </div>
+
+    </div>
+    <script>
+        function validateAndSave() {
+            var currentYear = document.getElementById("current-year").value;
+            var department = document.getElementById("department").value;
+            var regNo = document.getElementById("reg-no").value;
+            var rollNo = document.getElementById("roll-no").value;
+            var studentName = document.getElementById("student-name").value;
+            var email = document.getElementById("email").value;
+            var phone = document.getElementById("phone").value;
+            var address = document.getElementById("address").value;
+
+            if (currentYear === '' || department === '' || regNo === '' || rollNo === '' || studentName === '' || email === '' || phone === '' || address === '') {
+                alert("Please fill all the fields!");
+            } else {
+                // Code to save data goes here
+                alert("Data saved successfully!");
+                document.getElementById("student-form").submit();
+            }
+        }
+        function delete_student() {
+            var studentId = "{{ student.id }}"; // Assuming you have access to student ID
+
+            // Make an AJAX request to delete student record
+            fetch('/delete_student/' + studentId, {
+                method: 'DELETE',
+            })
+                .then(response => response.json())
+                .then(data => {
+                    alert("Data deleted successfully!");
+                    window.location.href = '/';
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                });
+        }
+
+        window.onload = function () {
+            var urlParams = new URLSearchParams(window.location.search);
+            var studentId = urlParams.get('id');
+
+            // Image preview function
+            function previewImage(event) {
+                var reader = new FileReader();
+                reader.onload = function () {
+                    var output = document.getElementById('preview-image');
+                    output.src = reader.result;
+                };
+                reader.readAsDataURL(event.target.files[0]);
+            }
+
+            // Event listener for file input change
+            document.getElementById('upload-photo').addEventListener('change', previewImage);
+
+
+        
+
+
+            // Make an AJAX request to fetch student information
+            fetch('/student/' + studentId)
+                .then(response => response.json())
+                .then(data => {
+                    // Check if data is not empty
+                    if (Object.keys(data).length !== 0) {
+                        // Populate form fields with student information
+                        document.getElementById('current-year').value = data.current_year;
+                        document.getElementById('department').value = data.department;
+                        document.getElementById('reg-no').value = data.reg_no;
+                        document.getElementById('roll-no').value = data.roll_no;
+                        document.getElementById('student-name').value = data.student_name;
+                        document.getElementById('phone').value = data.phone;
+                        document.getElementById('email').value = data.email;
+                        document.getElementById('address').value = data.address;
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+        };
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Management</title>
+    <style>
+        @font-face {
+            font-family: 'MadimiOne';
+            src: url('/static/fonts/MadimiOne-Regular.ttf') format('truetype');
+        }
+        body {
+            margin: 0;
+            font-family: 'MadimiOne';
+            letter-spacing: 1.25px;
+            word-spacing: 3px;
+            padding: 10px;
+            background-color: rgba(136, 0, 255, 0.062);
+        }
+
+        .top-bar {
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+            border-radius: 10px;
+            background-color: rgb(136, 0, 255);
+        }
+
+        .container {
+            display: flex;
+            justify-content: center; /* Center icons horizontally */
+            margin-top: 100px; /* Adjust as needed */
+        }
+
+        .icon-container {
+            text-align: center;
+            transition: transform 0.4s;
+            margin: 0 80px; /* Adjust margin between icons */
+        }
+
+        .icon-container:hover {
+            transform: translateY(-10px); /* Move icon container up on hover */
+        }
+
+        .icon-container a {
+            display: inline-block;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* Increase icon size */
+        .icon-container img {
+            width: 220px; /* Adjust the size of the icons */
+            height: auto;
+            border-radius: 10px;
+            transition: transform 0.4s;
+        }
+
+        .icon-container:hover img {
+            transform: scale(1.1); /* Scale up icon on hover */
+        }
+
+        .button-text {
+            margin-top: 10px;
+            font-family: 'MadimiOne';
+            font-size: 20px;
+            font-weight: bold;
+            color: rgb(86, 46, 119);
+            transition: color 0.4s;
+        }
+
+        .icon-container:hover .button-text {
+            color: rgb(136, 0, 255); /* Change text color on hover */
+        }
+        .vacant-space{
+            margin-top: 40px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Top bar -->
+    <div class="top-bar">
+        <h1>Data Management</h1>
+    </div>
+
+    <!-- Icon buttons -->
+    <div class="container">
+        <!-- Icon button for adding data -->
+        <div class="icon-container">
+            <a href="{{ url_for('add_data') }}">
+                <img src="../static/project_images/add-data.png" alt="Add Data">
+                <div class="button-text">Add Data</div>
+            </a>
+        </div>
+
+        <!-- Folder for images -->
+        <div class="icon-container">
+            <a href="{{ url_for('image_data') }}">
+                <div class="vacant-space"></div>
+                <img src="../static/project_images/folder.png" alt="Images">
+                <div class="button-text">Images</div>
+            </a>
+        </div>
+
+        <!-- Folder for videos -->
+        <div class="icon-container">
+            <a href="{{ url_for('video_data') }}">
+                <div class="vacant-space"></div>
+                <img src="../static/project_images/folder.png" alt="Videos">
+                <div class="button-text">Videos</div>
+            </a>
+        </div>
+    </div>
+</body>
+
+</html>

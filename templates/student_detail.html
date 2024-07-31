@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Student Details</title>
+    <style>
+        @font-face {
+            font-family: "MadimiOne";
+            src: url("/static/fonts/MadimiOne-Regular.ttf") format("truetype");
+        }
+
+        body {
+            font-family: "MadimiOne";
+            margin: 0;
+            padding: 20px;
+            background-color: rgba(136, 0, 255, 0.199);
+            letter-spacing: 1.5px;
+            word-spacing: 3.5px;
+        }
+
+        .outer_container {
+            width: 62%;
+            height: 75vh;
+            overflow: auto;
+            background-color: white;
+            border: 2px solid rgb(136, 0, 255);
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            /* align-items: center; */
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 10px;
+        }
+
+        select {
+            font-family: "MadimiOne";
+            /* Apply the custom font to input text and select elements */
+            width: 100%;
+            font-size: 14px;
+            padding: 7px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            border: 1px solid rgba(136, 0, 255, 0.534);
+            color: rgba(57, 11, 118, 0.829);
+            letter-spacing: 1.5px;
+            word-spacing: 3.5px;
+        }
+
+        input[type="text"] {
+            font-family: "MadimiOne";
+            /* Apply the custom font to input text and select elements */
+            width: 100%;
+            font-size: 14px;
+            padding: 7px;
+            border-radius: 4px;
+            box-sizing: border-box;
+            border: 1px solid rgba(136, 0, 255, 0.534);
+            color: rgba(57, 11, 118, 0.829);
+            letter-spacing: 1.5px;
+            word-spacing: 3.5px;
+        }
+
+        .container {
+            height: 100%;
+            width: 53.5%;
+            padding-right: 12px;
+            padding-left: 5px;
+            padding-top: 10px;
+        }
+
+        .second_col {
+            height: 100%;
+            width: 45.5%;
+        }
+
+        .input-group {
+            margin-bottom: 3.5%;
+            font-size: 15px;
+        }
+
+        label {
+            display: block;
+            font-weight: 400;
+            margin-bottom: 2.75px;
+        }
+
+        button {
+            border: 1px solid rgb(136, 0, 255);
+            padding: 10px 20px;
+            background-color: white;
+            color: rgb(136, 0, 255);
+            border-radius: 10px;
+            font-family: "MadimiOne";
+            font-size: 16px;
+            margin-right: 20px;
+        }
+
+        button:hover {
+            color: white;
+            background-color: rgb(136, 0, 255);
+        }
+
+        .input-group-inline {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .input-group-inline .input-group {
+            width: 45%;
+        }
+
+        .second_col img {
+            width: 100%;
+            border-radius: 10px;
+            height: 100%;
+        }
+
+        .in_between_space {
+            height: 20px;
+        }
+
+        fieldset legend {
+            color: rgb(136, 0, 255);
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .button-container {
+            margin-top: 10px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="outer_container">
+        <div class="container">
+            <form id="student-form" method="post" action="/save_student">
+                <fieldset>
+                    <legend>Course Information</legend>
+                    <div class="input-group">
+                        <label for="current-year">Current Year:</label>
+                        <select name="current-year" id="current-year" required>
+                            <option value="">--Select--</option>
+                            <option value="First Year">First Year</option>
+                            <option value="Second Year">Second Year</option>
+                            <option value="Third Year">Third Year</option>
+                            <option value="Fourth Year">Fourth Year</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label for="department">Department:</label>
+                        <select name="department" id="department" required>
+                            <option value="">--Select--</option>
+                            <option value="B. Tech - CSE">
+                                B. Tech - Computer Science and Engineering
+                            </option>
+                            <option value="B. Tech - ECE">
+                                B. Tech - Electronics and Communication Engineering
+                            </option>
+                            <option value="M. Tech">M. Tech</option>
+                        </select>
+                    </div>
+                </fieldset>
+                <div class="in_between_space"></div>
+                <div class="input-group">
+                    <fieldset>
+                        <legend>Student Information</legend>
+                        <div class="input-group-inline">
+                            <div class="input-group">
+                                <label for="reg-no">Registration Number:</label>
+                                <input name="reg-no" type="text" id="reg-no" required />
+                            </div>
+                            <div class="input-group">
+                                <label for="roll-no">Roll Number:</label>
+                                <input name="roll-no" type="text" id="roll-no" required />
+                            </div>
+                        </div>
+                        <div class="input-group-inline">
+                            <div class="input-group">
+                                <label for="student-name">Student Name:</label>
+                                <input name="student-name" type="text" id="student-name" required />
+                            </div>
+                            <div class="input-group">
+                                <label for="phone">Phone Number:</label>
+                                <input name="phone" type="text" id="phone" required />
+                            </div>
+                        </div>
+                        <div class="input-group">
+                            <label for="email">E-mail:</label>
+                            <input name="email" type="text" id="email" required />
+                        </div>
+                        <div class="input-group">
+                            <label for="address">Address:</label>
+                            <input name="address" type="text" id="address" required />
+                        </div>
+                    </fieldset>
+                </div>
+
+                <div class="button-container">
+                    <button type="submit" onclick="validateAndSave()">Save</button>
+                    <button type="button" onclick="clearData()">Clear</button>
+                </div>
+            </form>
+        </div>
+        <div class="second_col">
+            <img src="../static/project_images/student.jpeg" />
+        </div>
+    </div>
+
+    <script>
+        // JavaScript functions to handle Save and Clear actions
+        function validateAndSave() {
+            var currentYear = document.getElementById("current-year").value;
+            var department = document.getElementById("department").value;
+            var regNo = document.getElementById("reg-no").value;
+            var rollNo = document.getElementById("roll-no").value;
+            var studentName = document.getElementById("student-name").value;
+            var email = document.getElementById("email").value;
+            var phone = document.getElementById("phone").value;
+            var address = document.getElementById("address").value;
+
+            if (
+                currentYear === "" ||
+                department === "" ||
+                regNo === "" ||
+                rollNo === "" ||
+                studentName === "" ||
+                email === "" ||
+                phone === "" ||
+                address === ""
+            ) {
+                alert("Please fill all the fields!");
+            } else {
+                document.getElementById("student-form").submit();
+            }
+        }
+
+        function clearData() {
+            // Code to clear form fields goes here
+            document.getElementById("current-year").value = "";
+            document.getElementById("department").value = "";
+            document.getElementById("reg-no").value = "";
+            document.getElementById("roll-no").value = "";
+            document.getElementById("student-name").value = "";
+            document.getElementById("email").value = "";
+            document.getElementById("phone").value = "";
+            document.getElementById("address").value = "";
+        }
+    </script>
+</body>
+
+</html>

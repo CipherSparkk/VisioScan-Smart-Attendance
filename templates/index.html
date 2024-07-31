@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VisioScan Smart Attendance</title>
+    <style>
+        @font-face {
+            font-family: 'MadimiOne';
+            src: url('/static/fonts/MadimiOne-Regular.ttf') format('truetype');
+        }
+
+        body {
+            margin: 10;
+            padding: 0;
+            letter-spacing: 1.25px;
+            word-spacing: 3px;
+            font-family: 'MadimiOne';
+            background-color: rgba(136, 0, 255, 0.084);
+            overflow: visible;
+        }
+
+        .top-bar {
+            background-color: rgb(136, 0, 255);
+            color: white;
+            padding: 2px;
+            text-align: center;
+            border-radius: 10px;
+        }
+        .outer_container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: calc(100vh - 9%); /* Adjusted height */
+            width: 100%;
+            margin-top: 10px; /* Adjusted margin */
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .button {
+            width: calc(35% - 110px);
+            /* Adjust width based on desired layout */
+            margin: 25px;
+            /* Adjust margin between buttons */
+            position: relative;
+            /* Position for pseudo-element */
+            transition: transform 0.4s;
+            border-radius: 10px;
+        }
+
+        .button:hover {
+            transform: scale(1.1);
+            border: 2px solid rgb(136, 0, 255);
+            border-radius: 10px;
+        }
+
+        .button::before {
+            content: "";
+            display: block;
+            padding-top: 92%;
+            /* Adjusted for 0.9:1.0 ratio */
+        }
+
+        .button img {
+            position: absolute;
+            border-radius: 10px;
+            width: 100%;
+            height: 90%;
+            top: 0;
+            left: 0;
+        }
+
+        .button-text {
+            font-family: 'MadimiOne';
+            width: 100%;
+            font-size: 18px;
+            font-weight: bold;
+            text-align: center;
+            color: rgb(86, 46, 119);
+            transition: font-size 0.4s, bottom 0.4s;
+        }
+
+        .button:hover .button-text {
+            color: rgb(136, 0, 255);
+            font-weight: bold;
+            transform: scale(1.1);
+        }
+
+        .button a {
+            height: 20vh;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="top-bar">
+        <h1>VisioScan Smart Attendance</h1>
+    </div>
+    <div class="outer_container">
+        <div class="container">
+            <div class="button">
+                <a href="{{ url_for('student_detail') }}">
+                    <img src="../static/project_images/student_details.jpeg" height="10" alt="Student Details"></a>
+                <div class="button-text">Add New Student</div>
+            </div>
+            <div class="button">
+                <a href="{{ url_for('student_database') }}">
+                    <img src="../static/project_images/student_database.jpg" alt="Student Database">
+                </a>
+                <div class="button-text">Student Database</div>
+            </div>
+
+            <div class="button">
+                <a href="{{ url_for('attendance_records') }}">
+                    <img src="../static/project_images/attendance.jpg" alt="Attendance Records">
+                </a>
+                <div class="button-text">Attendance Records</div>
+            </div>
+            <div class="button">
+                <a href="{{ url_for('data') }}"> 
+                    <img src="../static/project_images/upload.jpg" alt="Data Management"></a>
+                <div class="button-text">Data</div>
+            </div>
+            <div class="button">
+                <a href="{{ url_for('train_data') }}"><img src="../static/project_images/train_data.jpeg" alt="Train Data"></a>
+                <div class="button-text">Train Data</div>
+            </div>
+            <div class="button">
+                <a href="{{ url_for('run_face_detector') }}">
+                    <img src="../static/project_images/face_detector.png" alt="Face Detector">
+                </a>
+                <div class="button-text">Face Detector</div>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+
+</html>

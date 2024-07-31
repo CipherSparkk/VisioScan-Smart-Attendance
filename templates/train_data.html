@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Train Data</title>
+    <style>
+        @font-face {
+            font-family: 'MadimiOne';
+            src: url('/static/fonts/MadimiOne-Regular.ttf') format('truetype');
+        }
+
+        body {
+            margin: 0;
+            font-family: 'MadimiOne';
+            letter-spacing: 1.25px;
+            word-spacing: 3px;
+            padding: 10px;
+            background-color: rgba(136, 0, 255, 0.062);
+        }
+
+        .topbar {
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+            border-radius: 10px;
+            background-color: rgb(136, 0, 255);
+            font-size: 30px;
+            padding: 2.5%;
+            margin-bottom: 60px;
+        }
+
+        .outer-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 560px;
+        }
+
+        .container {
+            width: 48%;
+            height: 100%;
+            margin: 0 10px; /* Adjust margin between containers */
+            background: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgb(153, 1, 255);
+            text-align: center;
+            position: relative; /* Add position relative to contain absolute positioned elements */
+        }
+
+        button {
+            letter-spacing: 1.25px;
+            word-spacing: 3px;
+            border: 1px solid rgb(136, 0, 255);
+            padding: 10px 20px;
+            background-color: white;
+            color: rgb(136, 0, 255);
+            border-radius: 10px;
+            font-family: "MadimiOne";
+            font-size: 16px;
+            margin-right: 20px;
+            margin-bottom: 7px;
+            /* Center the button horizontally */
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 20px;
+        }
+
+        button:hover {
+            color: white;
+            background-color: rgb(136, 0, 255);
+        }
+
+        #gifImage1,
+        #gifImage2 {
+            border: none;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="topbar">Train Data</div>
+    <div class="outer-container">
+        <div class="container">
+            <!-- Embedding GIF -->
+            <img id="gifImage1" src="" width="80%" height="80%">
+            <button class="button" id="gatherDataBtn" onclick="gatherData('https://media.giphy.com/media/JCHL2R8xP1w4Gx2wER/giphy.gif')">Gather Data</button>
+        </div>
+        <div class="container">
+            <!-- Embedding GIF -->
+            <img id="gifImage2" src="" width="80%" height="80%">
+            <button class="button" id="trainModelBtn" onclick="trainModel('https://media.giphy.com/media/LESpNIDaNBUcRIPzng/giphy.gif')">Train Model</button>
+        </div>
+    </div>
+    <script>
+        function gatherData(gifUrl) {
+            var gifImage = document.getElementById("gifImage1");
+            gifImage.src = gifUrl;
+
+            // Send request to run corresponding Python script
+            fetch("/run_vid_to_img")
+                .then(response => response.json())
+                .then(data => {
+                    // Show alert
+                    alert(data.message);
+                    // Pause the GIF
+                    gifImage.src = "";
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        }
+
+        function trainModel(gifUrl) {
+            // Update the source of the GIF
+            var gifImage = document.getElementById("gifImage2");
+            gifImage.src = gifUrl;
+
+            // Send request to run corresponding Python script
+            fetch("/run_train")
+                .then(response => response.json())
+                .then(data => {
+                    // Show alert
+                    alert(data.message);
+                    // Pause the GIF
+                    gifImage.src = "";
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        }
+    </script>
+</body>
+
+</html>

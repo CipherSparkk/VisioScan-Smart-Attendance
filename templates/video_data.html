@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Data</title>
+    <style>
+        @font-face {
+            font-family: 'MadimiOne';
+            src: url('/static/fonts/MadimiOne-Regular.ttf') format('truetype');
+        }
+
+        body {
+            margin: 0;
+            font-family: 'MadimiOne';
+            letter-spacing: 1.25px;
+            word-spacing: 3px;
+            padding: 10px;
+            background-color: rgba(136, 0, 255, 0.062);
+        }
+
+        .top-bar {
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+            border-radius: 10px;
+            background-color: rgb(136, 0, 255);
+            font-size: 30px;
+            padding: 2.5%;
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 60px;
+            width: 85%; /* Set width of the container */
+        }
+
+        .video-container {
+            text-align: center;
+            margin-bottom: 20px;
+            transition: transform 0.4s;
+            flex-basis: 14%; /* Set width of folder container */
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+        }
+
+        .video-container:hover {
+            transform: translateY(-10px); /* Move folder container up on hover */
+            background-color: rgb(136, 0, 255);
+        }
+        .video-container:hover .folder-icon {
+            transform: scale(1.1); /* Scale up folder icon on hover */
+        }
+        .video-container a {
+            text-decoration: none;
+            display: block;
+        }
+
+
+        /* Adjust video size */
+        video {
+            width: 90%; /* Adjust the width of the video */
+            height: auto;
+            border-radius: 10px;
+            transition: transform 0.4s;/* Set default background color */
+            z-index: 1;
+        }
+
+        .video-name {
+            margin-top: 10px;
+            font-size: 16px;
+            font-family: 'MadimiOne';
+            color: rgb(86, 46, 119);
+        }
+
+        .video-container:hover .video-name {
+            color: white;
+        }
+
+        .space-between-boxes {
+            margin-right: 40px; /* Adjust right margin */
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Top bar -->
+    <div class="top-bar">Videos</div>
+
+    <!-- Outer container -->
+
+    <!-- Video containers -->
+    <div class="container">
+        <!-- Dynamically generate video containers for each video -->
+        {% for video_name in video_names %}
+        <div class="space-between-boxes"></div>
+        <div class="video-container">
+            <video controls class="video" alt="Video">
+                <source src="/static/videos/{{ video_name }}" type="video/mp4">
+                <!-- Add additional <source> tags for other video formats if needed -->
+                Your browser does not support the video tag.
+            </video>
+            <div class="video-overlay"></div>
+            <div class="video-name">{{ video_name }}</div>
+        </div>
+        <div class="space-between-boxes"></div>
+        {% endfor %}
+    </div>
+</body>
+
+</html>

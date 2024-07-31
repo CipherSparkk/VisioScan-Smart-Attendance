@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Database</title>
+    <style>
+        @font-face {
+            font-family: 'MadimiOne';
+            src: url('/static/fonts/MadimiOne-Regular.ttf') format('truetype');
+        }
+        body {
+            margin: 10;
+            padding: 20;
+            font-family: 'Gill Sans';
+            background-color: rgba(136, 0, 255, 0.084);
+            overflow: visible; 
+        }
+        .topbar{
+            background-color: rgb(136, 0, 255);
+            color: white;
+            padding: 2px;
+            text-align: center;
+            border-radius: 10px;
+            letter-spacing: 2px; 
+            word-spacing: 4px; 
+            margin-bottom: 14px;
+            font-family: 'MadimiOne';
+        }
+        h1 {
+            text-align: center;
+            color: white;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th{
+            padding: 17px;
+            text-align: left;
+            color: rgb(54, 1, 64);
+            border-bottom: 2px solid rgba(136, 0, 255, 0.497);
+            letter-spacing: 1.25px; 
+            word-spacing: 2.5px; 
+            background-color:  rgba(136, 0, 255, 0.497);
+            font-family: 'MadimiOne';
+        }
+        tr{
+            text-align: left;
+            border-bottom: 1px solid rgba(136, 0, 255, 0.497);
+            letter-spacing: 1.25px; 
+            word-spacing: 2.5px; 
+            color: rgb(65, 30, 100);
+            background-color: rgba(136, 0, 255, 0.039);
+        }
+        td{
+            padding: 14px;
+        }
+        tr:hover {
+            background-color:  rgba(136, 0, 255, 0.294);
+        }
+        .filter {
+            margin-bottom: 20px;
+            padding: 10px;
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(136, 0, 255, 0.352);
+            display: flex;
+            align-items: center;
+            border-radius: 8px;
+            font-family: 'MadimiOne';
+            font-size: 15px;
+            letter-spacing: 1.25px;
+            word-spacing: 3px;
+        }
+        select{
+            font-family: 'MadimiOne';
+            letter-spacing: 1.25px;
+            font-size: 13px;
+        }
+        .filter label {
+            margin-right: 10px;
+        }
+        .filter select, .filter input[type="text"] {
+            padding: 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .actions {
+            position: relative;
+        }
+        .actions .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(136, 0, 255, 0.2);
+            border-radius: 4px;
+            z-index: 1;
+        }
+        .actions:hover .dropdown-menu {
+            display: block;
+        }
+        .actions .dropdown-menu button {
+            width: 100%;
+            padding: 5px 10px;
+            border: none;
+            background: none;
+            cursor: pointer;
+            text-align: left;
+        }
+        .actions .dropdown-menu button:hover {
+            background-color: #f5f5f5;
+        }
+    </style>
+</head>
+<body>
+    <div class="topbar">
+    <h1>Student Database</h1>
+    </div>
+    <div class="filter">
+        <label for="filter">Filter by:</label>
+        <select id="filterBy">
+            <option value="id">ID</option>
+            <option value="current_year">Current Year</option>
+            <option value="department">Department</option>
+            <option value="reg_no">Registration No.</option>
+            <option value="roll_no">Roll No.</option>
+            <option value="student_name">Student Name</option>
+            <option value="email">Email</option>
+            <option value="phone">Phone</option>
+            <option value="address">Address</option>
+        </select>
+        <input type="text" id="filter" onkeyup="filterTable()" placeholder="Enter keyword...">
+    </div>
+
+    <table id="studentTable">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Current Year</th>
+                <th>Department</th>
+                <th>Reg. No.</th>
+                <th>Roll No.</th>
+                <th>Student Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Address</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for student in students %}
+            <tr onclick="redirectToStudentPage('{{student.id}}')">
+                <td>{{ student.id }}</td>
+                <td>{{ student.current_year }}</td>
+                <td>{{ student.department }}</td>
+                <td>{{ student.reg_no }}</td>
+                <td>{{ student.roll_no }}</td>
+                <td>{{ student.student_name }}</td>
+                <td>{{ student.email }}</td>
+                <td>{{ student.phone }}</td>
+                <td>{{ student.address }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <script>
+        function filterTable() {
+            var input, filter, table, tr, td, i, txtValue;
+            input = document.getElementById("filter");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("studentTable");
+            tr = table.getElementsByTagName("tr");
+            var filterBy = document.getElementById("filterBy").value;
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[0];
+                if (td) {
+                    txtValue = td.textContent || td.innerText;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1 && filterBy === 'id') {
+                        tr[i].style.display = "";
+                    } else if (txtValue.toUpperCase().indexOf(filter) > -1 && filterBy === 'current_year') {
+                        tr[i].style.display = "";
+                    } else if (txtValue.toUpperCase().indexOf(filter) > -1 && filterBy === 'department') {
+                        tr[i].style.display = "";
+                    } else if (txtValue.toUpperCase().indexOf(filter) > -1 && filterBy === 'reg_no') {
+                        tr[i].style.display = "";
+                    } else if (txtValue.toUpperCase().indexOf(filter) > -1 && filterBy === 'roll_no') {
+                        tr[i].style.display = "";
+                    } else if (txtValue.toUpperCase().indexOf(filter) > -1 && filterBy === 'student_name') {
+                        tr[i].style.display = "";
+                    } else if (txtValue.toUpperCase().indexOf(filter) > -1 && filterBy === 'email') {
+                        tr[i].style.display = "";
+                    } else if (txtValue.toUpperCase().indexOf(filter) > -1 && filterBy === 'phone') {
+                        tr[i].style.display = "";
+                    } else if (txtValue.toUpperCase().indexOf(filter) > -1 && filterBy === 'address') {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }       
+            }
+        }
+        function redirectToStudentPage(studentId) {
+            window.location.href = "/student/" + studentId;
+        }
+    </script>
+</body>
+</html>

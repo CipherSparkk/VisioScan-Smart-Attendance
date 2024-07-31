@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Data</title>
+    <style>
+        @font-face {
+            font-family: 'MadimiOne';
+            src: url('/static/fonts/MadimiOne-Regular.ttf') format('truetype');
+        }
+
+        body {
+            font-family: 'MadimiOne';
+            margin: 0;
+            background-image: url('/static/project_images/back.jpeg');
+            /* Set background image path */
+            background-size: contain;
+            /* Ensure the background image fits */
+            background-position: center;
+            /* Center the background */
+            background-repeat: no-repeat;
+            /* Prevent background image from repeating */
+            padding: 0;
+            letter-spacing: 1.25px;
+            word-spacing: 3px;
+        }
+
+        .outer-container {
+            height: 100vh;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            border-radius: 20px;
+            width: 50%;
+            height: 70%;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 10px rgba(91, 251, 55, 0.654);
+            border: 3px solid rgba(99, 3, 234, 0.948);
+        }
+
+        .topbar {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 35px;
+            color: rgb(84, 1, 200);
+        }
+
+        label {
+            font-weight: 400;
+            font-size: 15px;
+        }
+
+        .input-field {
+            font-family: "MadimiOne";
+            margin-top: 3px;
+            width: 100%;
+            font-size: 14px;
+            padding: 6px;
+            border-radius: 4px;
+            box-sizing: border-box;
+            border: 2px solid rgba(136, 0, 255, 0.534);
+            color: rgba(57, 11, 118, 0.829);
+            letter-spacing: 1.5px;
+            word-spacing: 3.5px;
+        }
+
+        video {
+            width: 220px;
+            height: 150px;
+            display: inline;
+            margin-top: 10px;
+        }
+
+        .video-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+            border: 2px solid rgba(136, 0, 255, 0.534);
+            border-radius: 10px;
+        }
+
+        .video-input-field {
+            width: 100%;
+            margin-bottom: 20px;
+            border: 1px solid white;
+            padding-left: 10px;
+            padding-top: 20px;
+        }
+
+        button {
+            border: 1px solid rgb(136, 0, 255);
+            padding: 10px 20px;
+            background-color: white;
+            color: rgb(136, 0, 255);
+            border-radius: 10px;
+            font-family: "MadimiOne";
+            font-size: 16px;
+            margin-right: 20px;
+            margin-bottom: 7px;
+            /* Center the button horizontally */
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        button:hover {
+            color: white;
+            background-color: rgb(136, 0, 255);
+        }
+        button:disabled {
+            color: #808080; /* Grey color code */
+            background-color: #f2f2f2; /* Light grey background */
+        }
+
+
+        .video-preview {
+            width: 100%;
+            height: auto;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+        }
+
+        .video-preview-container {
+            width: 50%;
+            display: flex;
+            align-items: center;
+            padding-bottom: 8px;
+        }
+
+        .video-preview-container legend {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .input-group {
+            margin-bottom: 3%;
+            font-size: 15px;
+        }
+
+        .input-group-inline {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .input-group-inline .input-group {
+            width: 40%;
+        }
+
+        #uploadButton {
+            margin-top: 15px;
+        }
+
+        .upload-text {
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="outer-container">
+        <div class="container">
+            <div class="topbar">Add Data</div>
+            <form id="addDataForm" action="/add_data" method="post" enctype="multipart/form-data">
+                <div class="input-group-inline">
+                    <div class="input-group">
+                        <label for="studentName">Student Name:</label><br>
+                        <input class="input-field" type="text" id="studentName" name="studentName" required><br>
+                    </div>
+                    <div class="input-group">
+                        <label for="regNo">Registration Number:</label><br>
+                        <input class="input-field" type="text" id="regNo" name="regNo" required><br>
+                    </div>
+                </div>
+                <div class="input-group-inline">
+                    <div class="input-group">
+                        <label for="rollNo">Roll Number:</label><br>
+                        <input class="input-field" type="text" id="rollNo" name="rollNo" required><br>
+                    </div>
+                </div>
+            </form>
+            <button class="video-upload-button" id="validateButton">Validate</button><br>
+            <form id="uploadForm" action="/save_video" method="post" enctype="multipart/form-data">
+                <div class="upload-text">Upload Video:</div>
+                <div class="video-container">
+                    <input class="video-input-field" type="file" id="video" name="video" accept="video/*" required onchange="displayVideo(this)">
+                    <div class="video-preview-container">
+                        <video controls id="videoPlayer" style="display: none;"></video>
+                        <div class="video-overlay" id="overlay"></div>
+                    </div>
+                </div>
+                <button class="upload-button" id="uploadButton" type="submit" disabled>Upload</button>
+            </form>
+
+        </div>
+    </div>
+
+    <script>
+        // Disable file input and upload button by default
+        document.getElementById('video').disabled = true;
+        document.getElementById('uploadButton').disabled = true;
+
+        document.getElementById('validateButton').addEventListener('click', function () {
+            // Get input values
+            var studentName = document.getElementById('studentName').value;
+            var regNo = document.getElementById('regNo').value;
+            var rollNo = document.getElementById('rollNo').value;
+
+            // Check if any field is empty
+            if (studentName === '' || regNo === '' || rollNo === '') {
+                alert('Please fill all the details');
+                return;
+            }
+
+            // Disable validate button
+            this.disabled = true;
+
+            // Perform AJAX request to validate student
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', '/validate_student', true);
+            xhr.setRequestHeader('Content-Type', 'application/json');
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    if (xhr.status === 200) {
+                        var response = JSON.parse(xhr.responseText);
+                        if (response.valid) {
+                            // Enable file input and upload button
+                            document.getElementById('video').disabled = false;
+                            document.getElementById('uploadButton').disabled = false;
+                            alert('Validation Successful');
+                        } else {
+                            alert('Invalid Credentials. Please check and try again.');
+                        }
+                    } else {
+                        alert('Error validating student details. Please try again later.');
+                    }
+                    // Re-enable validate button
+                    document.getElementById('validateButton').disabled = false;
+                }
+            };
+            xhr.send(JSON.stringify({ studentName: studentName, regNo: regNo, rollNo: rollNo }));
+        });
+
+        function displayVideo(input) {
+            const videoPlayer = document.getElementById('videoPlayer');
+            const overlay = document.getElementById('overlay');
+            const file = input.files[0];
+            const reader = new FileReader();
+
+            reader.onload = function (e) {
+                videoPlayer.src = e.target.result;
+                videoPlayer.style.display = 'block';
+                overlay.style.display = 'none';
+            }
+
+            reader.readAsDataURL(file);
+        }
+    </script>
+</body>
+
+</html>
